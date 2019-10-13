@@ -20,4 +20,17 @@ describe("state management tests", () => {
     const state = store.doGetCurrentState();
     expect(state).toEqual({ foo: "baz" });
   });
+
+  test("it applies multiple actions and changes the state", () => {
+    const action1 = state => {
+      return Object.assign({}, state, { friend: "ship" });
+    };
+    const action2 = state => {
+      return Object.assign({}, state, { fool: "proof"})
+    }
+    store.doAddAction(action1);
+    store.doAddAction(action2);
+    const state = store.doGetCurrentState();
+    expect(state).toEqual({ foo: "baz", friend: "ship", fool: "proof" });
+  });
 });
